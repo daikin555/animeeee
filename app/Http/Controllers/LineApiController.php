@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Log;
 
 class LineApiController extends Controller
 {
+    protected $accessToken;
+    protected $channelSecret;
 
-    public function __construct(
-        protected $accessToken,
-        protected $channelSecret
-    ) {
+    public function __construct()
+    {
         $this->accessToken = config('line.channel.token');
         $this->channelSecret = config('line.channel.secret');
     }
@@ -19,6 +19,8 @@ class LineApiController extends Controller
     // Webhook受取処理
     public function postWebhook(Request $request) {
         $input = $request->all();
+	return;
+	Log::info($input);
         // ユーザーがどういう操作を行った処理なのかを取得
         $type  = $input['events'][0]['type'];
     
