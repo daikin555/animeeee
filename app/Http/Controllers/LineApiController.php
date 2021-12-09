@@ -19,8 +19,6 @@ class LineApiController extends Controller
     // Webhook受取処理
     public function postWebhook(Request $request) {
         $input = $request->all();
-	return;
-	Log::info($input);
         // ユーザーがどういう操作を行った処理なのかを取得
         $type  = $input['events'][0]['type'];
     
@@ -39,7 +37,7 @@ class LineApiController extends Controller
             $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($this->accessToken);
             $bot         = new \LINE\LINEBot($httpClient, ['channelSecret' => $this->channelSecret]);
             // LINEの投稿処理
-            $messageData = "メッセージありがとうございます。ただいま準備中です";
+            $messageData = $input['events'][0]['message']['text']; //"メッセージありがとうございます。ただいま準備中です";
             $response     = $bot->replyText($replyToken, $messageData);
 
             // Succeeded
