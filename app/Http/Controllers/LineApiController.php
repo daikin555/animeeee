@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MessageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class LineApiController extends Controller
 {
-    protected $accessToken;
-    protected $channelSecret;
 
-    public function __construct()
-    {
+    public function __construct(
+        protected $accessToken,
+        protected $channelSecret,
+        protected MessageService $messageService
+    ) {
         $this->accessToken = config('line.channel.token');
         $this->channelSecret = config('line.channel.secret');
+        $this->messageService = $messageService;
     }
 
     // Webhook受取処理
@@ -28,17 +31,15 @@ class LineApiController extends Controller
             case 'message':
                 // 返答に必要なトークンを取得
             $replyToken = $input['events'][0]['replyToken'];
-            // テスト投稿の場合
-            if ($replyToken == '00000000000000000000000000000000') {
-                Log::info('Succeeded');
-                return;
-            }
             // Lineに送信する準備
             $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($this->accessToken);
             $bot         = new \LINE\LINEBot($httpClient, ['channelSecret' => $this->channelSecret]);
             // LINEの投稿処理
-            $messageData = $input['events'][0]['message']['text']; //"メッセージありがとうございます。ただいま準備中です";
-            $response     = $bot->replyText($replyToken, $messageData);
+            // 返すメッセージを設定する
+            // $messageData = $input['events'][0]['message']['text'];
+            $num = rand(1, 26);
+            $messageData = "来週の日直は〜？？\n\n\n\n\n" . $num . "番の方です！\n宜しくお願いします!";
+            $response = $bot->replyText($replyToken, $messageData);
 
             // Succeeded
             if ($response->isSucceeded()) {
@@ -52,16 +53,6 @@ class LineApiController extends Controller
             // 友だち追加 or ブロック解除
             case 'follow':
                 Log::info("ユーザーが追加されました。");
-                break;
-    
-            // グループ・トークルーム参加
-            case 'join':
-                Log::info("グループ・トークルームに追加されました。");
-                break;
-    
-            // グループ・トークルーム退出
-            case 'leave':
-                Log::info("グループ・トークルームから退出させられました。");
                 break;
     
             // ブロック
