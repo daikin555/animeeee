@@ -34,7 +34,7 @@ class LineApiController extends Controller
             // LINEの投稿処理
             // 返すメッセージを設定する
             // $messageData = $input['events'][0]['message']['text'];
-            $message = $this->messageService->checkMessageType($input['events'][0]['message']['type']);
+            $message = $this->messageService->checkMessageType($input['events'][0]['message']);
             $response = $bot->replyText($replyToken, $message);
 
             // Succeeded

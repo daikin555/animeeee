@@ -61,7 +61,7 @@ final class Replace extends Enum
         };
     }
 
-    public static function searchMessage($value): string
+    public static function searchMessage($value): int
     {
         switch ($value) {
             case 'いい加減にしなさいっ！':
