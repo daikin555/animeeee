@@ -19,12 +19,10 @@ class LineApiController extends Controller
         $this->messageService = $messageService;
     }
 
-    // Webhook受取処理
     public function postWebhook(Request $request) {
         $input = $request->all();
         // ユーザーがどういう操作を行った処理なのかを取得
         $type  = $input['events'][0]['type'];
-        Log::info($type);
     
         switch ($type) {
             case 'message':
@@ -36,10 +34,8 @@ class LineApiController extends Controller
             // LINEの投稿処理
             // 返すメッセージを設定する
             // $messageData = $input['events'][0]['message']['text'];
-            $this->messageService->checkMessageType($input['events'][0]['message']['type']);
-            $num = rand(1, 26);
-            $messageData = "来週の日直は〜？？\n\n\n\n\n" . $num . "番の方です！\n宜しくお願いします!";
-            $response = $bot->replyText($replyToken, $messageData);
+            $message = $this->messageService->checkMessageType($input['events'][0]['message']['type']);
+            $response = $bot->replyText($replyToken, $message);
 
             // Succeeded
             if ($response->isSucceeded()) {

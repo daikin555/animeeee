@@ -2,9 +2,16 @@
 
 namespace App\Services;
 
+use App\Enums\Replace;
+
 class MessageService
 {
-    public function checkMessageType(array $message)
+    /**
+     * @param string $message
+     * @return string
+     */
+    public function checkMessageType(string $message): string
     {
+        return Replace::getDescription(Replace::searchMessage($message));
     }
 }
