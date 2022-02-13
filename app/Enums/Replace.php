@@ -63,29 +63,72 @@ final class Replace extends Enum
 
     public static function searchMessage($value): string
     {
-        return match ($value) {
-            'いい加減にしなさいっ！' => self::IIKAGEN,
-            'ちょっと待ってよ！' => self::MSTTEYO,
-            'うるさいっ！' => self::URUSAI,
-            '走っちゃダメ！' => self::HASHITTYADAME,
-            '危ない！' => self::WARNING,
-            '早く支度しなさいっ！' => self::SHITAKU,
-            '早くお風呂から出なさい！' => self::BATH,
-            'あー、もう、だから言ったでしょう？' => self::DAKARA,
-            '何度言ったらわかるのっ！' => self::NANDO,
-            '（こぼした時）拾って！' => self::HIROTTE,
-            '（失敗した時）あーあ、もう！' => self::MOU,
-            'もう！いつになったら宿題やるの！！' => self::ISTUYARUNO_1,
-            'もう！いつになったら宿題やるの！！' => self::ISTUYARUNO_2,
-            'もう！早く帰るよっ！' => self::GOING_HOME,
-            '（兄弟をたたくなど）やめなさいっ！' => self::YAMENASAI,
-            '（転んで）痛くない、痛くない' => self::ITAKUNAI,
-            'そんなこと言っちゃダメ！' => self::SONNAKOTO,
-            'もう知らないっ！' => self::SHIRANAI,
-            '人の迷惑になるからやめなさいっ！' => self::MEIWAKU,
-            '◯太郎！！' => self::TAROU,
-            '何やってるの！バカ！' => self::BAKA,
-            default => self::getKey($value),
-        };
+        switch ($value) {
+            case 'いい加減にしなさいっ！':
+                return self::IIKAGEN;
+                break;
+            case 'ちょっと待ってよ！':
+                return self::MSTTEYO;
+                break;
+            case 'うるさいっ！':
+                return self::URUSAI;
+                break;
+            case '走っちゃダメ！':
+                return self::HASHITTYADAME;
+                break;
+            case '危ない！':
+                return self::WARNING;
+                break;
+            case '早く支度しなさいっ！':
+                return self::SHITAKU;
+                break;
+            case '早くお風呂から出なさい！':
+                return self::BATH;
+                break;
+            case 'あー、もう、だから言ったでしょう？':
+                return self::DAKARA;
+                break;
+            case '何度言ったらわかるのっ！':
+                return self::NANDO;
+                break;
+            case '（こぼした時）拾って！':
+                return self::HIROTTE;
+                break;
+            case '（失敗した時）あーあ、もう！':
+                return self::MOU;
+                break;
+            case 'もう！いつになったら宿題やるの！！':
+                return self::ISTUYARUNO_1;
+                break;
+            case 'もう！いつになったら宿題やるの！！':
+                return self::ISTUYARUNO_2;
+                break;
+            case 'もう！早く帰るよっ！':
+                return self::GOING_HOME;
+                break;
+            case '（兄弟をたたくなど）やめなさいっ！':
+                return self::YAMENASAI;
+                break;
+            case '（転んで）痛くない、痛くない':
+                return self::ITAKUNAI;
+                break;
+            case 'そんなこと言っちゃダメ！':
+                return self::SONNAKOTO;
+                break;
+            case 'もう知らないっ！':
+                return self::SHIRANAI;
+                break;
+            case '人の迷惑になるからやめなさいっ！':
+                return self::MEIWAKU;
+                break;
+            case '◯太郎！！':
+                return self::TAROU;
+                break;
+            case '何やってるの！バカ！':
+                return self::BAKA;
+                break;
+            default:
+                return self::getKey($value);
+        }
     }
 }
